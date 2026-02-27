@@ -1,0 +1,97 @@
+/* 奶油米白背景，底部留出结算条的空间，防止被挡住 */
+page {
+  background-color: #FFF9F2;
+  padding-bottom: 120rpx; 
+}
+/* --- 空购物车状态 --- */
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200rpx;
+}
+.empty-icon { font-size: 100rpx; margin-bottom: 20rpx; }
+.empty-text { font-size: 28rpx; color: #A0887E; }
+/* --- 购物车列表状态 --- */
+.cart-list { padding: 30rpx; }
+.cart-card {
+  background-color: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4rpx 15rpx rgba(212, 190, 175, 0.2);
+}
+.cart-name { font-size: 32rpx; font-weight: bold; color: #5C3D2E; margin-bottom: 10rpx;}
+.cart-price { font-size: 36rpx; font-weight: 900; color: #E74C3C; }
+/* --- 步进器（加减数量）样式 --- */
+.stepper {
+  display: flex;
+  align-items: center;
+  background-color: #F8E8D7; /* 奶茶色底座 */
+  border-radius: 40rpx;
+  padding: 6rpx;
+}
+
+.step-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 50%;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.05);
+}
+
+/* 减号：纯白背景，浅色字 */
+.sub-btn {
+  background-color: #FFFFFF;
+  color: #A0887E;
+}
+
+/* 加号：亮橙色背景，白字 */
+.add-btn {
+  background-color: #FF7A00;
+  color: #FFFFFF;
+}
+
+/* 中间的数量文字 */
+.step-input {
+  width: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #5C3D2E;
+}
+/* --- 底部悬浮结算条 --- */
+.checkout-bar {
+  position: fixed; /* 把结算条死死钉在屏幕底部 */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 110rpx;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.05);
+}
+.total-price { font-size: 30rpx; color: #5C3D2E; font-weight: bold; }
+.price-num { color: #E74C3C; font-size: 44rpx; margin-left: 10rpx; }
+
+/* 渐变色的结算大按钮 */
+.checkout-btn {
+  background: linear-gradient(135deg, #FF9A44, #FC6076);
+  color: white;
+  padding: 18rpx 60rpx;
+  border-radius: 50rpx;
+  font-weight: bold;
+  font-size: 32rpx;
+  box-shadow: 0 6rpx 12rpx rgba(252, 96, 118, 0.3);
+}

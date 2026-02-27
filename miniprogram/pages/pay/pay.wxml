@@ -1,0 +1,21 @@
+<view class="pay-wrapper">
+  <view class="amount-box">
+    <view class="time-tip">支付剩余时间 14:59</view>
+    <view class="price-display">
+      <text class="rmb">¥</text>
+      <text class="num">{{orderInfo.totalPrice || '0'}}</text>
+    </view>
+    <view class="order-id">订单编号: {{currentOrderId}}</view>
+  </view>
+
+  <view class="pay-method">
+    <text class="method-label">支付方式</text>
+    <view class="method-value">
+      <text class="wechat-icon">🟢</text>
+      <text>微信支付</text>
+    </view>
+  </view>
+
+  <view class="pay-btn" bindtap="simulatePay">确认支付</view>
+  <view class="cancel-btn" bindtap="cancelPay">暂不支付，先去逛逛</view>
+</view>

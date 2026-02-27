@@ -1,0 +1,24 @@
+<view class="shop-header">
+  <text class="shop-title">River的钵仔糕铺</text>
+  <text class="shop-subtitle">一口软糯，满心欢喜</text>
+</view>
+
+<view class="goods-list">
+  <view class="goods-card" wx:for="{{goodsList}}" wx:key="_id">
+    <view class="goods-pic">
+       <text class="pic-text">😋</text>
+    </view>
+    <view class="goods-info">
+      <view>
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-stock">今日仅剩 {{item.stock}} 份</view>
+      </view>
+      
+      <view class="price-bar">
+        <text class="goods-price">¥{{item.price}}</text>
+        <view class="add-btn" bindtap="addToCart" data-item="{{item}}">+</view>
+      </view>
+    </view>
+    
+  </view>
+</view>

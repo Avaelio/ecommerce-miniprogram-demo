@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/order/order",
+    "pages/cart/cart",
+    "pages/user/user",
+    "pages/pay/pay"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FF9A44",
+    "navigationBarTitleText": "River的钵仔糕铺",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#A0887E",
+    "selectedColor": "#FF7A00",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "点单"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

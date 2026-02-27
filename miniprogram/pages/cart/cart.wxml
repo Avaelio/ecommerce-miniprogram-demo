@@ -1,0 +1,25 @@
+<view class="empty-cart" wx:if="{{cartList.length === 0}}">
+  <text class="empty-icon">🛒</text>
+  <text class="empty-text">购物车空空如也，快去挑点软糯的钵仔糕吧！</text>
+</view>
+
+<view class="cart-list" wx:else>
+  <view class="cart-card" wx:for="{{cartList}}" wx:key="_id">
+    <view class="cart-info">
+      <view class="cart-name">{{item.name}}</view>
+      <view class="cart-price">¥{{item.price}}</view>
+    </view>
+    <view class="stepper">
+      <view class="step-btn sub-btn" bindtap="subQty" data-index="{{index}}">-</view>
+      <view class="step-input">{{item.quantity}}</view>
+      <view class="step-btn add-btn" bindtap="addQty" data-index="{{index}}">+</view>
+    </view>
+  </view>
+</view>
+
+<view class="checkout-bar" wx:if="{{cartList.length > 0}}">
+  <view class="total-price">
+    总计: <text class="price-num">¥{{totalPrice}}</text>
+  </view>
+  <view class="checkout-btn" bindtap="submitOrder">去结算</view>
+</view>
