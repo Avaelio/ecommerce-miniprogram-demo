@@ -1,1 +1,112 @@
-/* pages/order/order.wxss */
+/* 1. 整体背景设为温暖的奶油米白色，极度舒适 */
+page {
+  background-color: #FFF9F2; 
+}
+
+/* 2. 焦糖色渐变店招，带一点温柔的粉色阴影 */
+.shop-header {
+  background: linear-gradient(135deg, #FF9A44, #FC6076);
+  padding: 50rpx 40rpx;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 8rpx 20rpx rgba(252, 96, 118, 0.2);
+}
+
+.shop-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin-bottom: 12rpx;
+  letter-spacing: 2rpx;
+}
+
+.shop-subtitle {
+  font-size: 26rpx;
+  color: #FFE5E5;
+}
+
+/* 3. 卡片外层容器 */
+.goods-list {
+  padding: 0 30rpx;
+}
+
+/* 4. 商品卡片：纯白背景，大圆角，像刚蒸出来的糕点般圆润 */
+.goods-card {
+  background-color: #FFFFFF;
+  border-radius: 28rpx;
+  padding: 24rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 10rpx 30rpx rgba(212, 190, 175, 0.3); /* 奶茶色高级阴影 */
+}
+
+/* 5. 左侧图片占位（等你有了真图再替换） */
+.goods-pic {
+  width: 180rpx;
+  height: 180rpx;
+  background-color: #F8E8D7;
+  border-radius: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 24rpx;
+}
+
+.pic-text {
+  font-size: 80rpx;
+}
+
+/* 6. 右侧文字信息区布局 */
+.goods-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 7. 商品名称：浓郁的咖啡色 */
+.goods-name {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #5C3D2E; 
+}
+
+/* 8. 库存文字：浅褐色 */
+.goods-stock {
+  font-size: 24rpx;
+  color: #A0887E;
+  margin-top: 10rpx;
+}
+
+/* 9. 价格和按钮在一行的布局 */
+.price-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* 10. 价格：诱人的红豆色，并且把 ¥ 符号稍微调小一点更显精致 */
+.goods-price {
+  font-size: 40rpx;
+  font-weight: 900;
+  color: #E74C3C; 
+}
+
+/* 11. 让人忍不住想点的亮橙色添加按钮 */
+.add-btn {
+  width: 56rpx;
+  height: 56rpx;
+  background-color: #FF7A00;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 44rpx;
+  font-weight: bold;
+  line-height: 50rpx;
+  box-shadow: 0 6rpx 12rpx rgba(255, 122, 0, 0.3);
+}
