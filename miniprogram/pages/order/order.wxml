@@ -1,24 +1,81 @@
-<view class="shop-header">
-  <text class="shop-title">River的钵仔糕铺</text>
-  <text class="shop-subtitle">一口软糯，满心欢喜</text>
-</view>
+<view class="order-container">
+  
+  <!-- 内容区（左侧分类 + 右侧商品） -->
+  <view class="content-area">
+    
+    <!-- 左侧：分类侧边栏 -->
+    <scroll-view class="sidebar" scroll-y="true">
+      <view class="category-item {{currentCategoryId === item.id ? 'active' : ''}}"
+            wx:for="{{categories}}"
+            wx:key="id"
+            bindtap="switchCategory"
+            data-id="{{item.id}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
 
-<view class="goods-list">
-  <view class="goods-card" wx:for="{{goodsList}}" wx:key="_id">
-    <view class="goods-pic">
-       <text class="pic-text">😋</text>
-    </view>
-    <view class="goods-info">
-      <view>
-        <view class="goods-name">{{item.name}}</view>
-        <view class="goods-stock">今日仅剩 {{item.stock}} 份</view>
+    <!-- 右侧：商品列表区 -->
+    <scroll-view class="product-area" scroll-y="true">
+      <view class="category-title">
+        <text wx:for="{{categories}}" wx:key="id" wx:if="{{item.id === currentCategoryId}}">{{item.name}}</text>
       </view>
       
-      <view class="price-bar">
-        <text class="goods-price">¥{{item.price}}</text>
-        <view class="add-btn" bindtap="addToCart" data-item="{{item}}">+</view>
+      <view class="product-card" wx:for="{{displayProducts}}" wx:key="id">
+        <view class="product-img-placeholder">图片</view>
+        <view class="product-info">
+          <view class="product-name">{{item.name}}</view>
+          <view class="product-desc">{{item.desc}}</view>
+          <view class="price-and-action">
+            <view class="product-price">¥{{item.price}}</view>
+            <!-- 添加到购物车按钮 -->
+            <view class="add-btn" bindtap="addToCart" data-item="{{item}}">＋</view>
+          </view>
+        </view>
       </view>
-    </view>
+      <!-- 底部留白，防止商品列表最底部被底部的购物车结算栏遮挡 -->
+      <view class="bottom-space"></view>
+    </scroll-view>
     
   </view>
+
+  <!-- 购物车遮罩层 -->
+  <view class="cart-mask" wx:if="{{showCartPopup}}" bindtap="toggleCartPopup"></view>
+  
+  <!-- 购物车详情弹窗 -->
+  <view class="cart-popup {{showCartPopup ? 'show' : ''}}">
+    <view class="cart-popup-header">
+      <text class="cart-popup-title">已选商品</text>
+      <view class="cart-clear" bindtap="clearCart">🗑️ 清空</view>
+    </view>
+    <scroll-view class="cart-popup-list" scroll-y="true">
+      <view class="cart-popup-item" wx:for="{{cartItems}}" wx:key="id">
+        <view class="cart-item-name">{{item.name}}</view>
+        <view class="cart-item-price">¥{{item.price * item.quantity}}</view>
+        <!-- <view class="cart-item-quantity">x {{item.quantity}}</view> -->
+        <view class="cart-item-stepper">
+  <view class="step-btn minus" bindtap="decreaseQuantity" data-item="{{item}}">－</view>
+  <text class="step-num">{{item.quantity}}</text>
+  <view class="step-btn plus" bindtap="increaseQuantity" data-item="{{item}}">＋</view>
 </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部：购物车结算栏 -->
+  <view class="bottom-cart-bar">
+    <view class="cart-icon-wrapper" bindtap="toggleCartPopup">
+      <view class="cart-icon">🛒</view>
+      <view class="cart-badge" wx:if="{{cartTotalNum > 0}}">{{cartTotalNum}}</view>
+    </view>
+    
+    <view class="cart-price-info">
+      <text class="total-price" wx:if="{{cartTotalNum > 0}}">¥{{cartTotalPrice}}</text>
+      <text class="empty-text" wx:else>未选购商品</text>
+    </view>
+    
+    <view class="checkout-btn {{cartTotalNum > 0 ? 'active' : ''}}" bindtap="goToCheckout">
+      去结算
+    </view>
+  </view>
+
+</view> <!-- 修复：补充了缺失的顶级闭合标签 -->

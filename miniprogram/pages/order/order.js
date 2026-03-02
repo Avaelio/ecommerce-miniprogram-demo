@@ -1,49 +1,163 @@
 Page({
-  // 1. 准备一个空盘子，取名叫 goodsList
   data: {
-    // 页面调样式期间，直接在这里塞假数据，不扣云端额度！
-    goodsList: [
-      { _id: "1", name: "测试红豆糕", price: 5, stock: 50 },
-      { _id: "2", name: "测试桂花糕", price: 6, stock: 30 }
-    ] 
+    // 1. 左侧分类数据
+    categories: [
+      { id: 'c1', name: '招牌必点' },
+      { id: 'c2', name: '经典口味' },
+      { id: 'c3', name: '创新果味' }
+    ],
+    currentCategoryId: 'c1', // 当前选中的分类
+
+    // 2. 所有商品数据仓库 (增加了 categoryId 来区分)
+    allProducts: [
+      { id: 1, categoryId: 'c1', name: '招牌原味钵仔糕', price: 5, desc: '软糯Q弹，童年味道' },
+      { id: 2, categoryId: 'c1', name: '满料红豆钵仔糕', price: 6, desc: '颗颗饱满，甜而不腻' },
+      { id: 3, categoryId: 'c2', name: '桂花清香钵仔糕', price: 6, desc: '干桂花入料，唇齿留香' },
+      { id: 4, categoryId: 'c2', name: '黑芝麻钵仔糕', price: 6, desc: '浓郁芝麻香，养生首选' },
+      { id: 5, categoryId: 'c3', name: '百香果钵仔糕', price: 7, desc: '酸甜开胃，果香四溢' }
+    ],
+    displayProducts: [], // 右侧当前展示的商品
+
+    // 3. 底部实时购物车数据
+    cartTotalNum: 0,
+    cartTotalPrice: 0,
+    // 新增：真实的购物车列表和弹窗开关
+    cartItems: [], 
+    showCartPopup: false, 
+    cartTotalNum: 0,
+    cartTotalPrice: 0
   },
 
-  // onLoad() {
-  //   // 2. 呼叫云端数据库，目标：goods 货架
-  //   wx.cloud.database().collection('goods').get({
-  //     // 重点：这里换成了箭头函数 (res) => ，这样才能准确找到咱们的盘子
-  //     success: (res) => {
-  //       console.log("抓到数据了：", res.data);
-  //       // 3. 魔法指令：把抓到的云端数据，装进刚才的盘子里！
-  //       this.setData({
-  //         goodsList: res.data
-  //       });
-  //     }
-  //   })
-  // }
-  // 添加到购物车的专属函数
+  onLoad() {
+    // 页面加载时，默认展示第一个分类的商品
+    this.filterProducts('c1');
+  },
+  onShow() {
+    // 每次进入点单页，先去缓存里看看有没有之前选过的商品
+    let savedCart = wx.getStorageSync('myCartData') || [];
+    // 把读到的档，重新喂给咱们的统管大管家
+    this.updateCartStatus(savedCart); 
+  },
+
+  // 点击左侧分类切换
+  switchCategory(e) {
+    const categoryId = e.currentTarget.dataset.id;
+    this.setData({ currentCategoryId: categoryId });
+    this.filterProducts(categoryId);
+  },
+
+  // 根据分类过滤右侧商品
+  filterProducts(categoryId) {
+    const filtered = this.data.allProducts.filter(item => item.categoryId === categoryId);
+    this.setData({ displayProducts: filtered });
+  },
+
+
+// 【终极版】点击加号添加到购物车
   addToCart(e) {
-    // 1. 从刚才那个按钮里，把传递过来的商品数据拆包拿出来
-    const goods = e.currentTarget.dataset.item;
-    // 2. 去微信的本地缓存（Storage）里找一找，有没有一个叫 'cart' 的购物车箱子。如果没有，就给个空箱子 []
-    let cart = wx.getStorageSync('cart') || [];
-    // 3. 在箱子里找找看，这个商品是不是已经在里面了（对比商品唯一的 _id）
-    let existingItem = cart.find(cartItem => cartItem._id === goods._id);
+    const product = e.currentTarget.dataset.item; 
+    let cartItems = this.data.cartItems;
+    
+    // 检查购物车里是不是已经有这个钵仔糕了
+    let existingItem = cartItems.find(item => item.id === product.id);
+
     if (existingItem) {
-      // 如果已经在了，直接让数量 +1
-      existingItem.quantity += 1;
+      existingItem.quantity += 1; // 如果有，数量+1
     } else {
-      // 如果是第一次添加，给它盖个章（增加一个 quantity 属性并设为 1），然后塞进箱子
-      goods.quantity = 1;
-      cart.push(goods);
+      cartItems.push({ ...product, quantity: 1 }); // 如果没有，作为新商品塞进去
     }
-    // 4. 把整理好的箱子，重新封存在手机的本地缓存里
-    wx.setStorageSync('cart', cart);
-    // 5. 弹出一个极度丝滑的成功提示！
-    wx.showToast({
-      title: '已加入购物车',
-      icon: 'success',
-      duration: 1500
+
+    // 🌟 核心修复：不要自己默默 setData，直接叫大管家来统筹算账和存档！
+    this.updateCartStatus(cartItems);
+    
+    wx.showToast({ title: '已加入购物车', icon: 'none', duration: 800 });
+  },
+
+
+
+// 新增：点击购物车图标，弹出/收起明细
+toggleCartPopup() {
+  if (this.data.cartTotalNum === 0) return; // 如果购物车是空的，就不弹
+  this.setData({
+    showCartPopup: !this.data.showCartPopup
+  });
+},
+
+// 新增：清空购物车功能
+clearCart() {
+  this.setData({
+    cartItems: [],
+    cartTotalNum: 0,
+    cartTotalPrice: 0,
+    showCartPopup: false
+  });
+},
+  // 点击去结算
+  goToCheckout() {
+    if (this.data.cartTotalNum === 0) {
+      wx.showToast({ title: '请先选择商品', icon: 'none' });
+      return;
+    }
+    // 跳转到购物车页面
+    wx.switchTab({
+      url: '/pages/cart/cart'
     });
+  },
+  // 增加数量
+  increaseQuantity(e) {
+    const item = e.currentTarget.dataset.item;
+    let cartItems = this.data.cartItems;
+    // 找到对应商品，数量加1
+    let target = cartItems.find(i => i.id === item.id);
+    if (target) {
+      target.quantity += 1;
+      this.updateCartStatus(cartItems);
+    }
+  },
+
+  // 减少数量
+  decreaseQuantity(e) {
+    const item = e.currentTarget.dataset.item;
+    let cartItems = this.data.cartItems;
+    // 找到这个商品在数组里的具体位置
+    let targetIndex = cartItems.findIndex(i => i.id === item.id);
+
+    if (targetIndex !== -1) {
+      cartItems[targetIndex].quantity -= 1;
+      // 核心细节：如果数量减到 0，直接把它从数组里删掉
+      if (cartItems[targetIndex].quantity <= 0) {
+        cartItems.splice(targetIndex, 1);
+      }
+      this.updateCartStatus(cartItems);
+    }
+  },
+
+  // 统管全局的超级收银员：重新计算总数和总价
+  updateCartStatus(cartItems) {
+    let totalNum = 0;
+    let totalPrice = 0;
+    
+    // 遍历算钱
+    cartItems.forEach(item => {
+      totalNum += item.quantity;
+      totalPrice += item.price * item.quantity;
+    });
+
+    // 核心细节：如果购物车被减空了，自动把弹窗关掉
+    let showPopup = this.data.showCartPopup;
+    if (totalNum === 0) {
+      showPopup = false;
+    }
+
+    // 一次性更新所有状态
+    this.setData({
+      cartItems: cartItems,
+      cartTotalNum: totalNum,
+      cartTotalPrice: totalPrice,
+      showCartPopup: showPopup
+    });
+    // 🌟 【新增这一行】：每次算完账，把最新的购物车数组存进微信的底层缓存里！
+    wx.setStorageSync('myCartData', cartItems);
   }
+  
 })
