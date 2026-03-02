@@ -1,0 +1,141 @@
+.home-container {
+  padding: 20rpx;
+  background-color: #F8F6F2; /* 类似阿嬷手作的暖白色背景 */
+  min-height: 100vh;
+}
+
+.banner-swiper {
+  width: 100%;
+  height: 350rpx; /* 海报高度 */
+  border-radius: 20rpx; /* 高级感的圆角 */
+  overflow: hidden; /* 必须加，不然图片会溢出圆角 */
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.08); /* 微微的阴影 */
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+}
+page {
+  background-color: #F8F6F2; /* 暖白色高级背景 */
+}
+
+.home-container {
+  padding-bottom: 40rpx;
+}
+
+/* 轮播图 */
+.banner-swiper {
+  width: 100%;
+  height: 550rpx; /* 高度拉长，为悬浮做准备 */
+}
+.banner-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* --- 核心悬浮卡片 --- */
+.action-card {
+  margin: -60rpx 30rpx 0; /* 核心魔法：负边距向上移动 60rpx 压住轮播图 */
+  position: relative;
+  z-index: 10;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.06); /* 柔和的阴影制造立体感 */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40rpx 10rpx;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+}
+
+.action-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.action-desc {
+  font-size: 22rpx;
+  color: #A0887E; /* 品牌色文字 */
+  background-color: #f7f4f0; /* 极浅的底色 */
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* --- 底部客服与电话 --- */
+.contact-card {
+  margin: 40rpx 30rpx;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+}
+
+.contact-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.qr-placeholder {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: #eee;
+  border-radius: 12rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20rpx;
+  color: #999;
+  margin-right: 16rpx;
+}
+
+.phone-icon {
+  width: 70rpx;
+  height: 70rpx;
+  background-color: #E8F4E9;
+  color: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36rpx;
+  margin-right: 16rpx;
+  margin-left: 20rpx;
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-text .title {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.contact-text .subtitle {
+  font-size: 20rpx;
+  color: #888;
+}
+
+.contact-line {
+  width: 2rpx;
+  height: 80rpx;
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,43 @@
+<view class="home-container">
+  <swiper class="banner-swiper" indicator-dots="true" indicator-active-color="#A0887E" autoplay="true" interval="3000" circular="true">
+    <swiper-item wx:for="{{bannerList}}" wx:key="*this">
+      <image src="{{item}}" class="banner-img" mode="aspectFill"></image>
+    </swiper-item>
+  </swiper>
+
+  <view class="action-card">
+    <view class="action-item" bindtap="goToOrder" data-type="instore">
+      <view class="action-icon">🏬</view>
+      <text class="action-title">现场下单</text>
+      <text class="action-desc">免排队</text>
+    </view>
+    <view class="action-item" bindtap="goToOrder" data-type="pickup">
+      <view class="action-icon">🛍️</view>
+      <text class="action-title">预约自提</text>
+      <text class="action-desc">到店取</text>
+    </view>
+    <view class="action-item" bindtap="goToOrder" data-type="delivery">
+      <view class="action-icon">🛵</view>
+      <text class="action-title">外卖配送</text>
+      <text class="action-desc">送上门</text>
+    </view>
+  </view>
+
+  <view class="contact-card">
+    <view class="contact-item qr-section">
+      <view class="qr-placeholder">二维码</view>
+      <view class="contact-text">
+        <text class="title">添加客服微信</text>
+        <text class="subtitle">获取隐藏款菜单</text>
+      </view>
+    </view>
+    <view class="contact-line"></view>
+    <view class="contact-item phone-section" bindtap="callPhone">
+      <view class="phone-icon">📞</view>
+      <view class="contact-text">
+        <text class="title">手机直接订购</text>
+        <text class="subtitle">点击一键拨打</text>
+      </view>
+    </view>
+  </view>
+</view>
