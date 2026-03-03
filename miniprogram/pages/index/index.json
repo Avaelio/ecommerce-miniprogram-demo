@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "钵仔糕",
-  "usingComponents": {
-    "cloud-tip-modal": "/components/cloudTipModal/index"
-  }
+  "navigationBarTitleText": "钵仔糕"
 }
