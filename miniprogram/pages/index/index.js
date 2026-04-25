@@ -2,9 +2,9 @@ Page({
   data: {
     // 轮播图数据
     bannerList: [
-      '//miniprogram//images//picture', // 假装这是钵仔糕海报1
-      'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&q=80', // 假装这是钵仔糕海报2
-      'https://images.unsplash.com/photo-1484723091791-c0e7e53c7113?w=800&q=80'  // 假装这是钵仔糕海报3
+      '/images/gjsz.png', // 假装这是钵仔糕海报1
+      '/images/gjsz.png', // 假装这是钵仔糕海报1
+      '/images/gjsz.png', // 假装这是钵仔糕海报1
     ]
   },
   // ... 其他代码保留

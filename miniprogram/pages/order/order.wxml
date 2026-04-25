@@ -5,11 +5,11 @@
     
     <!-- 左侧：分类侧边栏 -->
     <scroll-view class="sidebar" scroll-y="true">
-      <view class="category-item {{currentCategoryId === item.id ? 'active' : ''}}"
+      <view class="category-item {{currentCategoryId === item._id ? 'active' : ''}}"
             wx:for="{{categories}}"
-            wx:key="id"
+            wx:key="_id"
             bindtap="switchCategory"
-            data-id="{{item.id}}">
+            data-id="{{item._id}}">
         {{item.name}}
       </view>
     </scroll-view>
@@ -17,19 +17,27 @@
     <!-- 右侧：商品列表区 -->
     <scroll-view class="product-area" scroll-y="true">
       <view class="category-title">
-        <text wx:for="{{categories}}" wx:key="id" wx:if="{{item.id === currentCategoryId}}">{{item.name}}</text>
+        <text wx:for="{{categories}}" wx:key="id" wx:if="{{item._id === currentCategoryId}}">{{item.name}}</text>
       </view>
       
-      <view class="product-card" wx:for="{{displayProducts}}" wx:key="id">
-        <view class="product-img-placeholder">图片</view>
+      <view class="product-card" wx:for="{{displayProducts}}" wx:key="_id">
+        <image class="product-img-placeholder" src="{{item.image_url}}" mode="aspectFill"></image>
         <view class="product-info">
           <view class="product-name">{{item.name}}</view>
           <view class="product-desc">{{item.desc}}</view>
           <view class="price-and-action">
-            <view class="product-price">¥{{item.price}}</view>
-            <!-- 添加到购物车按钮 -->
-            <view class="add-btn" bindtap="addToCart" data-item="{{item}}">＋</view>
-          </view>
+  <view class="product-price">¥{{item.price}}</view>
+  
+  <view class="action-area">
+    <view class="add-btn" wx:if="{{!item.cartQty || item.cartQty === 0}}" bindtap="addToCart" data-item="{{item}}">＋</view>
+    
+    <view class="list-stepper" wx:else>
+      <view class="step-btn minus" bindtap="decreaseQuantity" data-item="{{item}}">－</view>
+      <input class="step-num" type="number" value="{{item.cartQty}}" bindblur="inputCartQty" data-item="{{item}}" />
+      <view class="step-btn plus" bindtap="increaseQuantity" data-item="{{item}}">＋</view>
+    </view>
+  </view>
+</view>
         </view>
       </view>
       <!-- 底部留白，防止商品列表最底部被底部的购物车结算栏遮挡 -->
@@ -48,7 +56,7 @@
       <view class="cart-clear" bindtap="clearCart">🗑️ 清空</view>
     </view>
     <scroll-view class="cart-popup-list" scroll-y="true">
-      <view class="cart-popup-item" wx:for="{{cartItems}}" wx:key="id">
+      <view class="cart-popup-item" wx:for="{{cartItems}}" wx:key="_id">
         <view class="cart-item-name">{{item.name}}</view>
         <view class="cart-item-price">¥{{item.price * item.quantity}}</view>
         <!-- <view class="cart-item-quantity">x {{item.quantity}}</view> -->
@@ -64,7 +72,7 @@
   <!-- 底部：购物车结算栏 -->
   <view class="bottom-cart-bar">
     <view class="cart-icon-wrapper" bindtap="toggleCartPopup">
-      <view class="cart-icon">🛒</view>
+      <view class="cart-icon">🛍️</view>
       <view class="cart-badge" wx:if="{{cartTotalNum > 0}}">{{cartTotalNum}}</view>
     </view>
     

@@ -300,7 +300,6 @@ page {
   /* 加一点右边距，顺便解决你之前截图里右侧贴边太紧的问题 */
   margin-right: 20rpx; 
 }
-
 .step-btn {
   width: 48rpx;
   height: 48rpx;
@@ -318,12 +317,10 @@ page {
   background-color: #fff;
   box-sizing: border-box; /* 保证边框不撑大圆圈 */
 }
-
 .step-btn.plus {
   background-color: #A0887E; /* 品牌色 */
   color: #fff;
 }
-
 .step-num {
   margin: 0 24rpx;
   font-size: 30rpx;
@@ -331,4 +328,33 @@ page {
   min-width: 30rpx; /* 防止数字变两位数时乱晃 */
   text-align: center;
   font-weight: bold;
+}
+/* --- 强制显示 Scroll-View 滚动条 --- */
+::-webkit-scrollbar {
+  width: 8rpx;
+  height: 8rpx;
+  color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10rpx;
+  background-color: #D4BEAF; /* 使用奶油风品牌色 */
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* --- 外层列表步进器样式 --- */
+.list-stepper {
+  display: flex;
+  align-items: center;
+}
+
+/* 复用你之前写好的 step-btn 和 step-num 样式，这里只需要微调外层距 */
+.list-stepper .step-btn {
+  width: 48rpx;
+  height: 48rpx;
+}
+.list-stepper .step-num {
+  font-size: 28rpx;
+  width: 50rpx;
 }

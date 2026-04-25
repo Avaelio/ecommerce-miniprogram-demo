@@ -1,4 +1,5 @@
 {
+  "lazyCodeLoading": "requiredComponents",
   "pages": [
     "pages/index/index",
     "pages/order/order",
@@ -8,8 +9,8 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#FF9A44",
-    "navigationBarTitleText": "River的钵仔糕铺",
+    "navigationBarBackgroundColor": "#F4E2A5",
+    "navigationBarTitleText": "龚记手作",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

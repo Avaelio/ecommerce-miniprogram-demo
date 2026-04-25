@@ -1,7 +1,9 @@
 /* 奶油米白背景，底部留出结算条的空间，防止被挡住 */
 page {
   background-color: #FFF9F2;
-  padding-bottom: 120rpx; 
+  background-color: #FFF9F2;
+  /* 把原来的 120rpx 加大，并且加上手机底部的安全距离 */
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
 }
 /* --- 空购物车状态 --- */
 .empty-cart {
@@ -53,6 +55,7 @@ page {
   color: #A0887E;
 }
 
+
 /* 加号：亮橙色背景，白字 */
 .add-btn {
   background-color: #FF7A00;
@@ -81,6 +84,7 @@ page {
   padding: 0 40rpx;
   box-sizing: border-box;
   box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.05);
+  z-index: 999;
 }
 .total-price { font-size: 30rpx; color: #5C3D2E; font-weight: bold; }
 .price-num { color: #E74C3C; font-size: 44rpx; margin-left: 10rpx; }
@@ -94,4 +98,60 @@ page {
   font-weight: bold;
   font-size: 32rpx;
   box-shadow: 0 6rpx 12rpx rgba(252, 96, 118, 0.3);
+}
+
+/* 新加的样式 */
+/* 顶部切换标签样式 */
+.delivery-tabs {
+  display: flex;
+  background-color: #FFFFFF;
+  border-radius: 20rpx;
+  margin: 20rpx 30rpx;
+  padding: 10rpx;
+}
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #A0887E;
+  border-radius: 15rpx;
+  transition: all 0.3s; /* 切换时的平滑动画 */
+}
+.tab.active {
+  background-color: #FF7A00;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+/* 地址/门店区域底板 */
+.address-box, .store-box, .remark-box, .order-items {
+  background-color: #FFFFFF;
+  border-radius: 20rpx;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 15rpx rgba(212, 190, 175, 0.2);
+}
+
+/* 带图商品明细 */
+.item-card {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+.item-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 15rpx;
+  margin-right: 20rpx;
+  background-color: #F8E8D7; /* 占位色 */
+}
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.item-price-qty {
+  display: flex;
+  justify-content: space-between;
 }
