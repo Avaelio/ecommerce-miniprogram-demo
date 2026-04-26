@@ -134,6 +134,46 @@ Page({
       this.updateCartStatus(cartItems);
     }
   },
+  // 处理手动输入商品数量
+  inputCartQty(e) {
+    // 1. 获取用户输入的数字和当前商品信息
+    let val = parseInt(e.detail.value, 10);
+    const product = e.currentTarget.dataset.item;
+    let cartItems = this.data.cartItems;
+
+    // 2. 防错处理：如果输入为空、负数，统统当成 0 处理
+    if (isNaN(val) || val < 0) {
+      val = 0;
+    }
+    
+    // （可选）限制个最大数量，防止输错搞出 999 这种做不出来的量
+    if (val > 99) {
+      val = 99;
+      wx.showToast({ title: '单品最多99份哦', icon: 'none' });
+    }
+
+    // 3. 核心同步逻辑：在购物车里找这个商品
+    let existingIndex = cartItems.findIndex(item => item._id === product._id);
+
+    if (val === 0) {
+      // 如果输入0，且购物车里原本有它，就移除掉
+      if (existingIndex !== -1) {
+        cartItems.splice(existingIndex, 1);
+      }
+    } else {
+      // 如果输入大于0
+      if (existingIndex !== -1) {
+        // 购物车里有，更新数量
+        cartItems[existingIndex].quantity = val;
+      } else {
+        // 购物车里没有，以新数量加入购物车
+        cartItems.push({ ...product, quantity: val });
+      }
+    }
+
+    // 4. 调用你写好的超级大管家函数，它会自动帮你算钱、更新缓存并刷新外层列表！
+    this.updateCartStatus(cartItems);
+  },
 
   // 更新外层列表的显示数量（核心映射机制）
   syncCartToDisplay(cartItems, currentCategoryId) {
