@@ -40,5 +40,7 @@
       <text class="menu-arrow">></text>
     </view>
   </view>
-
+  <view class="admin-entry" bindtap="goToAdmin">
+  <text>🛠️ 商家后台管理</text>
+</view>
 </view>

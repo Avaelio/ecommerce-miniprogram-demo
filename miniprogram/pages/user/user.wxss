@@ -96,3 +96,16 @@
   border-bottom: 1px solid #f0f0f0;
 }
 .menu-item:last-child { border-bottom: none; }
+
+/* 老板后台入口按钮样式 */
+.admin-entry {
+  text-align: center;
+  padding: 30rpx;
+  margin: 40rpx 20rpx;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  color: #A0887E; /* 钵仔糕的奶茶色 */
+  font-weight: bold;
+  font-size: 30rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+}

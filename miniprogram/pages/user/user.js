@@ -136,5 +136,49 @@ doMockLogin() {
   handleMenuClick(e) {
     const item = e.currentTarget.dataset.item;
     wx.showToast({ title: '跳转：' + item.name, icon: 'none' });
+  },
+  handleMenuClick(e) {
+    const item = e.currentTarget.dataset.item;
+    wx.showToast({ title: '跳转：' + item.name, icon: 'none' });
+  }, // <-- 注意这里要加个英文逗号！
+
+  // 👇 下面这段是你漏掉的老板专属通道函数
+  goToAdmin() {
+    // 1. 获取当前缓存里的钥匙
+    const currentOpenId = wx.getStorageSync('userOpenId');
+    
+    // 2. 你的真实老板钥匙（⚠️ 再次确认这里填了你真正的 _openid，不要有前后空格！）
+    const bossOpenId = "obgtV3R8dwF55j0aPArEI7MDRL6w"; 
+
+    // 【监控1】如果还没拿到钥匙（因为网络慢），直接提示
+    if (!currentOpenId) {
+      wx.showToast({ title: '系统还在拿钥匙，请等两秒再点', icon: 'none' });
+      return;
+    }
+
+    // 【监控2】如果钥匙和锁芯不对，直接把两个全弹出来对比！
+    if (currentOpenId !== bossOpenId) {
+      wx.showModal({
+        title: '身份核对失败，你看是哪里不一样？',
+        content: `拿到的：${currentOpenId}\n设定的：${bossOpenId}`,
+        showCancel: false
+      });
+      return;
+    }
+
+    // 【监控3】如果身份通过了，准备跳转
+    console.log("🎉 身份验证通过！准备进入后台...");
+    wx.navigateTo({
+      url: '/pages/admin/order-list',
+      fail: (err) => {
+        // 如果身份通过了但还是没反应，100% 是因为你没建页面！
+        console.error("跳转失败！原因：", err);
+        wx.showModal({
+          title: '跳转失败',
+          content: '门开了，但门后没有房间！请去 app.json 的 pages 数组里添加 "pages/admin/order-list" 让系统生成页面。',
+          showCancel: false
+        });
+      }
+    });
   }
 })
